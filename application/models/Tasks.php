@@ -56,6 +56,21 @@ class Tasks extends XML_Model {
         return $config;
     }
     
+    public function load() 
+    {
+        // load the $this->_data array
+        // load our data from the REST backend
+        $this->rest->initialize(array('server' => REST_SERVER));
+        $this->rest->option(CURLOPT_PORT, REST_PORT);
+        $this->_data =  $this->rest->get('job');
+
+        // rebuild the field names from the first object
+        $one = array_values((array) $this->_data);
+        $this->_fields = array_keys((array)$one[0]);
+
+        // rebuild the keys table
+        $this->reindex();
+    }
     
 }
 
