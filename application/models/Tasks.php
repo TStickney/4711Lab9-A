@@ -22,7 +22,7 @@ class Tasks extends Memory_Model {
         // load our data from the REST backend
         $this->rest->initialize(array('server' => REST_SERVER));
         $this->rest->option(CURLOPT_PORT, REST_PORT);
-        $this->_data =  $this->rest->get('job');
+        $this->_data =  (array) $this->rest->get('job');
 
         // rebuild the field names from the first object
         $one = array_values((array) $this->_data);
